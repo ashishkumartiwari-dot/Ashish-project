@@ -1,0 +1,71 @@
+import java.util.*;
+
+class Parcel {
+    private String parcelId;
+    private String status;
+
+    public Parcel(String parcelId) {
+        this.parcelId = parcelId;
+        this.status = "Dispatched";
+    }
+
+    public String getParcelId() {
+        return parcelId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void updateStatus(String newStatus) {
+        status = newStatus;
+    }
+}
+
+public class CourierSystem {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        ArrayList<Parcel> parcelList = new ArrayList<>();
+
+        System.out.print("Enter number of parcels: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+
+        // Add parcels
+        for (int i = 0; i < n; i++) {
+            System.out.print("Enter Parcel ID: ");
+            String id = sc.nextLine();
+
+            Parcel p = new Parcel(id);
+
+            System.out.print("Enter Status (Dispatched/In Transit/Out for Delivery/Delivered): ");
+            String status = sc.nextLine();
+            p.updateStatus(status);
+
+            parcelList.add(p);
+        }
+
+        // Search parcel
+        System.out.print("\nEnter Parcel ID to Track: ");
+        String searchId = sc.nextLine();
+
+        boolean found = false;
+
+        for (Parcel p : parcelList) {
+            if (p.getParcelId().equalsIgnoreCase(searchId)) {
+                System.out.println("Parcel Found");
+                System.out.println("Parcel ID : " + p.getParcelId());
+                System.out.println("Status    : " + p.getStatus());
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Parcel not found.");
+        }
+
+        sc.close();
+    }
+}
